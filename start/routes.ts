@@ -21,5 +21,14 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
+  console.log('hello world1')
   return { hello: 'world' }
 })
+
+Route.get('/home', 'HomeController.index')
+
+Route.group(() => {
+  Route.get('/todo', 'TodosController.index')
+  Route.post('/todo', 'TodosController.store')
+  Route.put('/todo/:id', 'TodosController.update')
+}).prefix('/api')
