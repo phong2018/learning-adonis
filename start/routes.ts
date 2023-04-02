@@ -27,8 +27,16 @@ Route.get('/', async () => {
 
 Route.get('/home', 'HomeController.index')
 
-Route.group(() => {
-  Route.get('/todo', 'TodosController.index')
-  Route.post('/todo', 'TodosController.store')
-  Route.put('/todo/:id', 'TodosController.update')
+Route.group(() =>{
+  Route.group(() => {
+    Route.post('/register', 'AuthControler.register')
+    Route.post('/login', 'AuthControler.login')
+  })
+
+  Route.group(() => {
+    Route.get('/todo', 'TodosController.index')
+    Route.post('/todo', 'TodosController.store')
+    Route.put('/todo/:id', 'TodosController.update')
+  }).middleware('auth')
+
 }).prefix('/api')
