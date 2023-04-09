@@ -1,7 +1,9 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import View from "@ioc:Adonis/Core/View";
 
 export default class HomeController {
   public async index() {
-    return {hello:"Adonis API"}
+    return await View .render('welcome', {
+      greeting: 'Hello World'
+    })
   }
 }
