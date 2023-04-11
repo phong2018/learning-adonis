@@ -1,0 +1,23 @@
+# install lucid
+npm i @adonisjs/lucid
+
+# config lucid
+node ace configure @adonisjs/lucid
+
+# create container
+docker compose up
+
+# access container
+docker exec -it 0d5ed17f72bb /bin/sh
+
+# access postgre
+psql --username postgres
+
+# example create myUser & myDB
+CREATE USER myuser WITH PASSWORD 'myPassword';
+CREATE DATABASE mydb;
+GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser
+
+# show all DB, all users
+\l
+\du
