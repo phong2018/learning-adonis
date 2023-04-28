@@ -25,7 +25,10 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+
 Route.get('/home', 'HomeController.index')
+
+Route.get('/testUseAsyncLocalStorage', 'TodosController.testUseAsyncLocalStorage')
 
 Route.group(() =>{
   Route.group(() => {

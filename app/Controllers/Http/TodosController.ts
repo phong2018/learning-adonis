@@ -1,10 +1,16 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import HttpContext from '@ioc:Adonis/Core/HttpContext'
 
 import Todo from "App/Models/Todo";
 
 export default class TodosController {
+  public async testUseAsyncLocalStorage() {
+    const ctx = HttpContext.get()
+    console.log('testUseAsyncLocalStorage: ', ctx);
+  }
+
   public async index() {
-    const todos = Todo.all()
+    const todos = await Todo.all()
 
     return todos
   }
