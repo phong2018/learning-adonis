@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import HttpContext from '@ioc:Adonis/Core/HttpContext'
+import CreateTodoValidator from 'App/Validators/Todo/CreateTodoValidator'
 
 import Todo from "App/Models/Todo";
 
@@ -16,11 +17,8 @@ export default class TodosController {
   }
 
   public async store({request, response}:HttpContextContract) {
-    Todo.create({
-      title: request.input('title'),
-      is_completed: false
-    })
-
+    const payload = await request.validate(CreateTodoValidator)
+    Todo.create(payload)
     return response.status(201).json({'created': true})
   }
 
