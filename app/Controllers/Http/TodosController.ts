@@ -16,9 +16,9 @@ export default class TodosController {
     return todos
   }
 
-  public async store({request, response}:HttpContextContract) {
-    const data = await request.validate(CreateTodoValidator)
-    const todo = await (new CreateTodoService()).handle(data)
+  public async store({ auth, request, response}:HttpContextContract) {
+    const dataRequest = await request.validate(CreateTodoValidator)
+    const todo = await (new CreateTodoService()).setHandler(auth.user).setData(dataRequest).handle()
     return response.status(201).json(todo)
   }
 

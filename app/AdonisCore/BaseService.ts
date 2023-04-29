@@ -28,13 +28,6 @@ export default class BaseService {
     return this
   }
 
-  setRequest(request) {
-    this.setHandler(request.user())
-    this.setData(request.post())
-    this.setHeader(request)
-    return this
-  }
-
   getPerPage() {
     return this.data.per_page || 50
   }
