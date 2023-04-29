@@ -1,9 +1,9 @@
 export default class BaseService {
-  protected repository;
-  protected model;
-  protected data='ELL1'
-  protected handler;
-  protected header;
+  protected repository
+  protected model
+  protected data
+  protected handler
+  protected header
 
   setData(data) {
     this.data = data
