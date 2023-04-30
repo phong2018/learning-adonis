@@ -12,8 +12,7 @@ export default class Todo extends BaseModel {
   @column()
   public is_completed: Boolean
 
-  @column()
-  public user_id: number
+
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -21,6 +20,11 @@ export default class Todo extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => User)
+  @column()
+  public user_id: number
+
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
   public user: BelongsTo<typeof User>
 }

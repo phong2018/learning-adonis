@@ -2,6 +2,7 @@ import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
 
 export default class BaseRepository implements RepositoryInterface {
   public model
+
   async find(id: any, columns?: any[]) {
     return this.model.findOrFail(id,columns)
   }
@@ -16,6 +17,10 @@ export default class BaseRepository implements RepositoryInterface {
 
   async firstOrFailWhere(where: any, columns?: any[]) {
     return [where, columns]
+  }
+
+  async allWith() {
+    return this.model.query().preload('user')
   }
 
   async all(columns?: any[]) {
