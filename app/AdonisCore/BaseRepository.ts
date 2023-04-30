@@ -2,13 +2,6 @@ import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
 
 export default class BaseRepository implements RepositoryInterface {
   public model
-
-  async filter(filters) {
-    const criteria = new FilterCriteria(filters);
-    criteria.apply(this.model);
-    return this;
-  }
-
   async find(id: any, columns?: any[]) {
     return this.model.findOrFail(id,columns)
   }

@@ -1,5 +1,6 @@
 
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class BaseValidator {
 
@@ -12,9 +13,13 @@ export default class BaseValidator {
    * @return array
    */
 
-  public async commonListRules() {
-    return []
-  }
+  // Common list rules
+  static commonListRules = {
+    page: schema.number.optional(),
+    per_page: schema.number.optional(),
+    order: schema.string.optional(),
+    with: schema.string(),
+  };
 
   constructor(protected ctx: HttpContextContract) { }
 

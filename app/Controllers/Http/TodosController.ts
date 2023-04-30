@@ -1,7 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import HttpContext from '@ioc:Adonis/Core/HttpContext'
+
 import CreateTodoValidator from 'App/Validators/Todo/CreateTodoValidator'
+import ListTodoValidator from 'App/Validators/Todo/ListTodoValidator'
 import CreateTodoService from 'App/Services/Todo/CreateTodoService'
+import ListTodoService from 'App/Services/Todo/ListTodoService'
 import Todo from "App/Models/Todo";
 
 export default class TodosController {
@@ -10,10 +13,10 @@ export default class TodosController {
     console.log('testUseAsyncLocalStorage: ', ctx);
   }
 
-  public async index() {
-    const todos = await Todo.all()
-
-    return todos
+  public async index({ auth, request, response}:HttpContextContract) {
+    const dataRequest = await request.validate(ListTodoValidator)
+    const todos = await (new ListTodoService()).setHandler(auth.user).setData(dataRequest).handle()
+    return response.status(201).json(todos)
   }
 
   public async store({ auth, request, response}:HttpContextContract) {
