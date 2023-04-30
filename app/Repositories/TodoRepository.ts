@@ -7,4 +7,6 @@ export default class TodoRepository extends BaseRepository {
     super()
     this.model = Todo
   }
+
+
 }

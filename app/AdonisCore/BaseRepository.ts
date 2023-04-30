@@ -1,7 +1,17 @@
 import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
+import CriteriaComposite from "App/AdonisCore/Criteria/CriteriaComposite";
 
 export default class BaseRepository implements RepositoryInterface {
   public model
+
+  async applyCriteria(criteria) {
+    if (criteria instanceof CriteriaComposite) {
+      const query = this.model.query()
+      return await criteria.apply(query)
+    } else {
+      return await criteria.apply(this.model.query())
+    }
+  }
 
   async find(id: any, columns?: any[]) {
     return this.model.findOrFail(id,columns)
@@ -17,6 +27,25 @@ export default class BaseRepository implements RepositoryInterface {
 
   async firstOrFailWhere(where: any, columns?: any[]) {
     return [where, columns]
+  }
+
+  public async findAll(filters?: any[], orders?: any[], relations?: any[]): Promise<any[]> {
+    const query = this.model.query()
+    return query
+
+    // if (filters !== undefined) {
+    //   query.where('completed', filters)
+    // }
+
+    // if (orders !== undefined) {
+    //   query.orderBy('completed', filters)
+    // }
+
+    // if (orderBy.column !== undefined && orderBy.direction !== undefined) {
+    //   query.orderBy(orderBy.column, orderBy.direction)
+    // }
+
+    // return await query.with('user').fetch()
   }
 
   async allWith() {
