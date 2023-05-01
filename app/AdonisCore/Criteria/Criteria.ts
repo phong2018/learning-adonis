@@ -1,5 +1,5 @@
 // app/Criteria/Criteria.js
-export default class Criteria {
-  async apply(query) {}
+export default interface Criteria {
+  apply(query)
 }
 

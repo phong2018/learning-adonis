@@ -1,10 +1,9 @@
 import Criteria from "App/AdonisCore/Criteria/Criteria";
 
-export default class ByAttribute extends Criteria {
+export default class ByAttribute implements Criteria {
   protected attribute
   protected value
   constructor(attribute, value) {
-    super();
     this.attribute = attribute;
     this.value = value;
   }

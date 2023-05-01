@@ -1,19 +1,18 @@
 import Criteria from "App/AdonisCore/Criteria/Criteria";
 import Todo from "App/Models/Todo";
 
-export default class CriteriaComposite extends Criteria {
+export default class CriteriaComposite implements Criteria {
   protected criteriaList
 
   constructor() {
-    super();
     this.criteriaList = [];
   }
 
-  add(criteria) {
+  add(criteria: Criteria) {
     this.criteriaList.push(criteria);
   }
 
-  async applyCriterias(query) {
+  async apply(query) {
 
     // let  todos = query
     // todos = todos.where('id', 1)

@@ -5,7 +5,7 @@ export default class BaseRepository implements RepositoryInterface {
   public model
 
   async applyCriterias(criteria: CriteriaComposite) {
-    return criteria.applyCriterias(this.model.query())
+    return criteria.apply(this.model.query())
   }
 
   async find(id: any, columns?: any[]) {

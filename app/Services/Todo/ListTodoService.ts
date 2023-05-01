@@ -16,7 +16,6 @@ export default class ListTodoService extends BaseService {
     const criteria = new CriteriaComposite()
     // criteria.add(new ByAttribute('id', 2))
     criteria.add(new ByAttribute('title', 'title3'))
-
     criteria.add(new OrderTodo('id', 'asc'))
     const todoRepository = new TodoRepository()
     // Apply the criteria to the list of users
