@@ -1,3 +1,7 @@
+# ######################### 
+console.log(query.constructor.name)
+console.log(typeof(query))
+
 # #########################
 * use node ace repl
 .ls

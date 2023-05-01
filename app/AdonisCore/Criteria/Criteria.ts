@@ -1,5 +1,5 @@
-export default interface Criteria {
-  apply(query: any): Promise<any>;
+// app/Criteria/Criteria.js
+export default class Criteria {
+  async apply(query) {}
 }
-
 

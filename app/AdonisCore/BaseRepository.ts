@@ -4,13 +4,8 @@ import CriteriaComposite from "App/AdonisCore/Criteria/CriteriaComposite";
 export default class BaseRepository implements RepositoryInterface {
   public model
 
-  async applyCriteria(criteria) {
-    if (criteria instanceof CriteriaComposite) {
-      const query = this.model.query()
-      return await criteria.apply(query)
-    } else {
-      return await criteria.apply(this.model.query())
-    }
+  async applyCriterias(criteria: CriteriaComposite) {
+    return criteria.applyCriterias(this.model.query())
   }
 
   async find(id: any, columns?: any[]) {
