@@ -11,6 +11,12 @@ export default class CriteriaComposite implements Criteria {
     this.criteriaList.push(criteria);
   }
 
+  adds(criterias: Criteria[]) {
+    criterias.forEach((criteria) => {
+      this.criteriaList.push(criteria);
+    })
+  }
+
   async apply(query) {
     for (const criteria of this.criteriaList) {
        await criteria.apply(query)

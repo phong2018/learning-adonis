@@ -24,25 +24,6 @@ export default class BaseRepository implements RepositoryInterface {
     return [where, columns]
   }
 
-  public async findAll(filters?: any[], orders?: any[], relations?: any[]): Promise<any[]> {
-    const query = this.model.query()
-    return query
-
-    // if (filters !== undefined) {
-    //   query.where('completed', filters)
-    // }
-
-    // if (orders !== undefined) {
-    //   query.orderBy('completed', filters)
-    // }
-
-    // if (orderBy.column !== undefined && orderBy.direction !== undefined) {
-    //   query.orderBy(orderBy.column, orderBy.direction)
-    // }
-
-    // return await query.with('user').fetch()
-  }
-
   async allWith() {
     return this.model.query().preload('user')
   }
