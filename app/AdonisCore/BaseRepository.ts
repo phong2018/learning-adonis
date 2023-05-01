@@ -1,5 +1,5 @@
 import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
-import CriteriaComposite from "App/AdonisCore/Criteria/CriteriaComposite";
+import CriteriaComposite from "App/AdonisCore/Criterias/CriteriaComposite";
 
 export default class BaseRepository implements RepositoryInterface {
   public model
