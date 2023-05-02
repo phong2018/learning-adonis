@@ -28,7 +28,7 @@ Route.get('/', async () => {
 
 Route.get('/home', 'HomeController.index')
 
-Route.get('/testUseAsyncLocalStorage', 'TodosController.testUseAsyncLocalStorage')
+Route.get('/testUseAsyncLocalStorage', 'TodoController.testUseAsyncLocalStorage')
 
 Route.group(() =>{
   Route.group(() => {
@@ -37,9 +37,7 @@ Route.group(() =>{
   })
 
   Route.group(() => {
-    Route.get('/todo', 'TodosController.index')
-    Route.post('/todo', 'TodosController.store')
-    Route.put('/todo/:id', 'TodosController.update')
+    Route.resource('todos', 'TodoController')
   }).middleware('auth')
 
 }).prefix('/api')

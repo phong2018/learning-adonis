@@ -7,7 +7,7 @@ import CreateTodoService from 'App/Services/Todo/CreateTodoService'
 import ListTodoService from 'App/Services/Todo/ListTodoService'
 import Todo from "App/Models/Todo";
 
-export default class TodosController {
+export default class TodoController {
   public async testUseAsyncLocalStorage() {
     const ctx = HttpContext.get()
     console.log('testUseAsyncLocalStorage: ', ctx);
