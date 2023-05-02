@@ -35,7 +35,7 @@ export default class BaseService {
     return this.data.per_page || 50
   }
 
-  allowOrders() {
+  addOrders(allowOrdersArr: string[]= []) {
     if (!this.data.order) {
       return []
     }
@@ -44,16 +44,20 @@ export default class BaseService {
 
     for (let i = 0; i < arrOrders.length; i++) {
       if (arrOrders[i][0] == '-') {
-        orders.push(new OrderCriteria(arrOrders[i].substr(1), 'desc'))
+        if (allowOrdersArr.includes(arrOrders[i].substr(1))) {
+          orders.push(new OrderCriteria(arrOrders[i].substr(1), 'desc'))
+        }
       }
       else {
-        orders.push(new OrderCriteria(arrOrders[i], 'asc'))
+        if (allowOrdersArr.includes(arrOrders[i])) {
+          orders.push(new OrderCriteria(arrOrders[i], 'asc'))
+        }
       }
     }
     return orders
   }
 
-  allowRelations() {
+  addRelations(addRelationsArr : string[] = []) {
     if (!this.data.with) {
       return []
     }
@@ -61,7 +65,9 @@ export default class BaseService {
     let arrRelations = this.data.with.split(",");
 
     for (let i = 0; i < arrRelations.length; i++) {
-      relations.push(new RelationsCriteria(arrRelations[i]))
+      if (addRelationsArr.includes(arrRelations[i])) {
+        relations.push(new RelationsCriteria(arrRelations[i]))
+      }
     }
     return relations
   }

@@ -10,17 +10,17 @@ export default class ListTodoService extends BaseService {
   public async handle(): Promise<Todo> {
     const criteria = new CriteriaComposite()
     const todoRepository = new TodoRepository()
-    criteria.adds(this.allowFilters())
+    criteria.adds(this.addFilters(todoRepository.allowFilters()))
     criteria.add(new LessThenCreatedAtScope())
-    criteria.adds(this.allowOrders())
-    criteria.adds(this.allowRelations())
+    criteria.adds(this.addOrders(todoRepository.allowOrders()))
+    criteria.adds(this.addRelations(todoRepository.allowRelations()))
     const todos = await todoRepository.applyCriterias(criteria)
     return todos
   }
 
-  allowFilters() {
+  addFilters(allowFilters: string[] = []) {
     let filters = Array<FilterCriteria>();
-    if (this.data.title) {
+    if (this.data.title && allowFilters.includes('title')) {
       filters.push(new TitleFilter('title', this.data.title))
     }
 

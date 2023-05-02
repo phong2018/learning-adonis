@@ -7,4 +7,24 @@ export default class TodoRepository extends BaseRepository {
     super()
     this.model = Todo
   }
+
+  allowRelations() {
+    return [
+      'user',
+      'user.todos'
+    ]
+  }
+
+  allowOrders() {
+    return [
+      'id',
+      'title'
+    ]
+  }
+
+  allowFilters() {
+    return [
+      'title'
+    ]
+  }
 }
