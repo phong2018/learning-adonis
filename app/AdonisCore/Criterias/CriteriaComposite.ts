@@ -19,7 +19,7 @@ export default class CriteriaComposite implements Criteria {
 
   async apply(query) {
     for (const criteria of this.criteriaList) {
-       await criteria.apply(query)
+      await criteria.apply(query)
     }
     return query;
   }
