@@ -6,6 +6,10 @@ export default class AppProvider {
 
   public register () {
     // Register your own bindings
+    this.app.container.bind('Todo/CreateTodoService', () => {
+      const {default: CreateTodoService}  = require('App/Services/Todo/CreateTodoService')
+      return new CreateTodoService()
+    })
   }
 
   public async boot () {

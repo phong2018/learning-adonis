@@ -4,7 +4,6 @@ import Application from '@ioc:Adonis/Core/Application'
 
 import CreateTodoValidator from 'App/Validators/Todo/CreateTodoValidator'
 import ListTodoValidator from 'App/Validators/Todo/ListTodoValidator'
-import CreateTodoService from 'App/Services/Todo/CreateTodoService'
 import ListTodoService from 'App/Services/Todo/ListTodoService'
 import Todo from "App/Models/Todo";
 
@@ -22,8 +21,9 @@ export default class TodoController {
   }
 
   public async store({ auth, request, response}:HttpContextContract) {
+    const createTodoService = Application.container.resolveBinding('Todo/CreateTodoService')
     const dataRequest = await request.validate(CreateTodoValidator)
-    const todo = await (new CreateTodoService()).setHandler(auth.user).setData(dataRequest).handle()
+    const todo = await createTodoService.setHandler(auth.user).setData(dataRequest).handle()
     return response.status(201).json(todo)
   }
 
