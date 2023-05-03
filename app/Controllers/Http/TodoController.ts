@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import HttpContext from '@ioc:Adonis/Core/HttpContext'
+import Application from '@ioc:Adonis/Core/Application'
 
 import CreateTodoValidator from 'App/Validators/Todo/CreateTodoValidator'
 import ListTodoValidator from 'App/Validators/Todo/ListTodoValidator'
@@ -14,8 +15,9 @@ export default class TodoController {
   }
 
   public async index({ auth, request, response}:HttpContextContract) {
+    const listTodoService = Application.container.make(ListTodoService)
     const dataRequest = await request.validate(ListTodoValidator)
-    const todos = await (new ListTodoService()).setHandler(auth.user).setData(dataRequest).handle()
+    const todos = await listTodoService.setHandler(auth.user).setData(dataRequest).handle()
     return response.status(201).json(todos)
   }
 

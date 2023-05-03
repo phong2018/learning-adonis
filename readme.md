@@ -1,6 +1,7 @@
 # ######################### 
 console.log(query.constructor.name)
 console.log(typeof(query))
+ModelQueryBuilder
 
 # #########################
 * use node ace repl
