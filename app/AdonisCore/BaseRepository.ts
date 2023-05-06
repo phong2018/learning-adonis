@@ -1,45 +1,80 @@
 import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
+import { BaseRepositoryMixin } from 'App/AdonisCore/Mixins/BaseRepositoryMixin'
 
-export default class BaseRepository implements RepositoryInterface {
+export default class BaseRepository extends BaseRepositoryMixin implements RepositoryInterface {
   public model
+  public query
 
-  async find(id: any, columns?: any[]) {
+  constructor(Model)
+  {
+    super()
+    this.model = Model
+    this.rescueQuery()
+  }
+
+  async prepareQuery()
+  {
+    this.applyScopeQueries()
+    this.applyCriteria()
+  }
+
+  async rescueQuery()
+  {
+    this.resetQuery();
+    this.resetScope();
+    this.resetCriteria();
+  }
+
+  async find(id: any, columns?: any[] = ['*']) {
     return this.model.findOrFail(id,columns)
   }
 
-  async first(columns?: any[]) {
+  async first(columns?: any[] = ['*']) {
     return this.model.first(columns)
   }
 
-  async firstWhere(where: any, columns?: any[]) {
+  async firstWhere(where: any, columns?: any[] = ['*']) {
     return [where, columns]
   }
 
-  async firstOrFailWhere(where: any, columns?: any[]) {
+  async firstOrFailWhere(where: any, columns?: any[] = ['*']) {
     return [where, columns]
+  }
+
+  async demochain() {
+    return this.query.preload('user')
   }
 
   async allWith() {
-    return this.model.query().preload('user')
+    this.query = this.model.query()
+    this.query.where('id', '>', 2)
+    this.query = this.demochain()
+    return this.query
   }
 
-  async all(columns?: any[]) {
-    return this.model.all(columns)
+  async all(columns?: any[] = ['*']) {
+    this.prepareQuery()
+    const result = this.query.select(columns)
+    this.rescueQuery()
+    return result
   }
 
-  async paginate(limit?: number, columns?: any[]) {
+  async paginate(curr_page: number = 1, limit?: number, columns?: any[] = ['*']) {
+    this.prepareQuery()
+    const result = this.query.select(columns).paginate(curr_page,limit)
+    this.rescueQuery()
+    return result
+  }
+
+  async simplePaginate(limit?: number, columns?: any[] = ['*']) {
     return [limit, columns]
   }
 
-  async simplePaginate(limit?: number, columns?: any[]) {
-    return [limit, columns]
-  }
-
-  async findByField(field: string, value: any, columns?: any[]) {
+  async findByField(field: string, value: any, columns?: any[] = ['*']) {
     return [field, value, columns]
   }
 
-  async findWhereIn(field: string, value: any[], columns?: any[]) {
+  async findWhereIn(field: string, value: any[], columns?: any[] = ['*']) {
     return [field, value, columns]
   }
 
