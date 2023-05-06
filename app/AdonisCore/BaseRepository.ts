@@ -26,11 +26,17 @@ export default class BaseRepository extends BaseRepositoryMixin implements Repos
   }
 
   async find(id: any, columns?: any[] = ['*']) {
-    return this.model.findOrFail(id,columns)
+    this.prepareQuery()
+    const result = this.query.select(columns).firstOrFail(id)
+    this.rescueQuery()
+    return result
   }
 
   async first(columns?: any[] = ['*']) {
-    return this.model.first(columns)
+    this.prepareQuery()
+    const result = this.query.select(columns).first()
+    this.rescueQuery()
+    return result
   }
 
   async firstWhere(where: any, columns?: any[] = ['*']) {

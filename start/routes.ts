@@ -37,9 +37,7 @@ Route.group(() =>{
   })
 
   Route.group(() => {
-    Route.get('/todo', 'TodosController.index')
-    Route.post('/todo', 'TodosController.store')
-    Route.put('/todo/:id', 'TodosController.update')
+    Route.resource('todos', 'TodoController')
   }).middleware('auth')
 
 }).prefix('/api')

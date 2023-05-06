@@ -18,7 +18,7 @@ export default class BaseValidator {
     page: schema.number.optional(),
     per_page: schema.number.optional(),
     order: schema.string.optional(),
-    with: schema.string(),
+    with: schema.string.optional(),
   };
 
   constructor(protected ctx: HttpContextContract) { }

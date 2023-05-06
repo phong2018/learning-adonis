@@ -6,8 +6,10 @@ import ListTodoValidator from 'App/Validators/Todo/ListTodoValidator'
 import CreateTodoService from 'App/Services/Todo/CreateTodoService'
 import ListTodoService from 'App/Services/Todo/ListTodoService'
 import Todo from "App/Models/Todo";
+import ShowTodoValidator from 'App/Validators/Todo/ShowTodoValidator'
+import ShowTodoService from 'App/Services/Todo/ShowTodoService'
 
-export default class TodosController {
+export default class TodoController {
   public async testUseAsyncLocalStorage() {
     const ctx = HttpContext.get()
     console.log('testUseAsyncLocalStorage: ', ctx);
@@ -16,6 +18,12 @@ export default class TodosController {
   public async index({ auth, request, response}:HttpContextContract) {
     const dataRequest = await request.validate(ListTodoValidator)
     const todos = await (new ListTodoService()).setHandler(auth.user).setData(dataRequest).handle()
+    return response.status(200).json(todos)
+  }
+
+  public async show({ auth, request, params, response}:HttpContextContract) {
+    const dataRequest = await request.validate(ShowTodoValidator)
+    const todos = await (new ShowTodoService()).setHandler(auth.user).setData(dataRequest).setModel(Number(params.id)).handle()
     return response.status(201).json(todos)
   }
 
