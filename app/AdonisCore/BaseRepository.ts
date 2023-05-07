@@ -1,10 +1,9 @@
-import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
 import HasCriteriaMixin from "App/AdonisCore/Mixins/HasCriteriaMixin";
 import HasScopeQueryMixin from "App/AdonisCore/Mixins/HasScopeQueryMixin";
 import { applyMixins } from "App/AdonisCore/Mixins/applyMixins";
 
 export interface BaseRepository extends HasCriteriaMixin, HasScopeQueryMixin {}
-export class BaseRepository implements RepositoryInterface {
+export class BaseRepository {
   public model
   public query
 
@@ -47,17 +46,6 @@ export class BaseRepository implements RepositoryInterface {
 
   async firstOrFailWhere(where: any, columns: any[] = ['*']) {
     return [where, columns]
-  }
-
-  async demochain() {
-    return this.query.preload('user')
-  }
-
-  async allWith() {
-    this.query = this.model.query()
-    this.query.where('id', '>', 2)
-    this.query = this.demochain()
-    return this.query
   }
 
   async all(columns: any[] = ['*']) {
