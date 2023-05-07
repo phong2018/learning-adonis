@@ -13,7 +13,7 @@ export default class ListTodoService extends BaseService {
 
   public async handle(): Promise<Todo> {
     this.repository.pushScopeQuery(function(query) {
-      return query.where('id', '>', 1)
+      return query.where('id', '>', 2)
     })
     this.repository.pushCriteria(this.getFiltersCriteria(this.repository.allowFilters()))
     this.repository.pushCriteria(this.getOrdersCriteria(this.repository.allowOrders()))

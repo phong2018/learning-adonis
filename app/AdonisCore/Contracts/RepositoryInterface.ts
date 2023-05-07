@@ -5,14 +5,14 @@ export default interface RepositoryInterface {
    * @param id
    * @param columns
    */
-  find(id: any, columns?: any[]): Promise<any>;
+  find(id: any, columns: any[]): Promise<any>;
 
   /**
    * Get first record of repository
    *
    * @param columns
    */
-  first(columns?: any[]): Promise<any>;
+  first(columns: any[]): Promise<any>;
 
   /**
    * Retrieve first data by multiple fields
@@ -20,7 +20,7 @@ export default interface RepositoryInterface {
    * @param where
    * @param columns
    */
-  firstWhere(where: any, columns?: any[]): Promise<any>;
+  firstWhere(where: any, columns: any[]): Promise<any>;
 
   /**
    * Retrieve first or fail data by multiple fields
@@ -28,14 +28,14 @@ export default interface RepositoryInterface {
    * @param where
    * @param columns
    */
-  firstOrFailWhere(where: any, columns?: any[]): Promise<any>;
+  firstOrFailWhere(where: any, columns: any[]): Promise<any>;
 
   /**
    * Get all data of repository
    *
    * @param columns
    */
-  all(columns?: any[]): Promise<any>;
+  all(columns: any[]): Promise<any>;
 
   /**
    * Get data of repository by pagination
@@ -43,7 +43,7 @@ export default interface RepositoryInterface {
    * @param limit
    * @param columns
    */
-  paginate(limit?: number, columns?: any[]): Promise<any>;
+  paginate(curr_page: number, limit: number, columns: any[]): Promise<any>;
 
   /**
    * Get data of repository by pagination
@@ -51,7 +51,7 @@ export default interface RepositoryInterface {
    * @param limit
    * @param columns
    */
-  simplePaginate(limit?: number, columns?: any[]): Promise<any>;
+  simplePaginate(limit: number, columns: any[]): Promise<any>;
 
   /**
    * Get all data of repository by field
@@ -60,14 +60,14 @@ export default interface RepositoryInterface {
    * @param value
    * @param columns
    */
-  findByField(field: string, value: any, columns?: any[]): Promise<any>;
+  findByField(field: string, value: any, columns: any[]): Promise<any>;
 
   /**
    * Get all data of repository by condition
    *
    * @param columns
    */
-  findWhereIn(field: string, value: any[], columns?: any[]): Promise<any>;
+  findWhereIn(field: string, value: any[], columns: any[]): Promise<any>;
 
   /**
    * Create new model

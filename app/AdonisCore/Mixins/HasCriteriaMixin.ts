@@ -1,26 +1,22 @@
-import Mixin from 'App/AdonisCore/Mixins/Mixin'
+export default class HasCriteriaMixin {
+  protected criteria
 
-export const HasCriteriaMixin: Mixin = (baseClass) => {
-  return class extends baseClass {
+  async resetCriteria() {
+    this.criteria = []
+  }
 
-    protected criteria
+  async pushCriteria(criteriaArr) {
+    for (const criterion of criteriaArr) {
+      this.criteria.push(criterion)
+    }
+  }
 
-    async resetCriteria() {
-      this.criteria = []
+  async applyCriteria(query) {
+    for (const criterion of this.criteria) {
+      criterion.apply(query)
     }
 
-    async pushCriteria(criteriaArr) {
-      for (const criterion of criteriaArr) {
-        this.criteria.push(criterion)
-      }
-    }
+    return this
+  }
+}
 
-    async applyCriteria() {
-      for (const criterion of this.criteria) {
-        criterion.apply(this.query)
-      }
-
-      return this
-    }
-  };
-};

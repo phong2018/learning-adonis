@@ -1,49 +1,51 @@
 import RepositoryInterface from 'App/AdonisCore/Contracts/RepositoryInterface'
-import { BaseRepositoryMixin } from 'App/AdonisCore/Mixins/BaseRepositoryMixin'
+import HasCriteriaMixin from "App/AdonisCore/Mixins/HasCriteriaMixin";
+import HasScopeQueryMixin from "App/AdonisCore/Mixins/HasScopeQueryMixin";
+import { applyMixins } from "App/AdonisCore/Mixins/applyMixins";
 
-export default class BaseRepository extends BaseRepositoryMixin implements RepositoryInterface {
+export interface BaseRepository extends HasCriteriaMixin, HasScopeQueryMixin {}
+export class BaseRepository implements RepositoryInterface {
   public model
   public query
 
   constructor(Model)
   {
-    super()
     this.model = Model
     this.rescueQuery()
   }
 
   async prepareQuery()
   {
-    this.applyScopeQueries()
-    this.applyCriteria()
+    this.applyScopeQueries(this.query)
+    this.applyCriteria(this.query)
   }
 
   async rescueQuery()
   {
-    this.resetQuery();
+    this.query = this.model.query();
     this.resetScope();
     this.resetCriteria();
   }
 
-  async find(id: any, columns?: any[] = ['*']) {
+  async find(id: any, columns: any[] = ['*']) {
     this.prepareQuery()
     const result = this.query.select(columns).firstOrFail(id)
     this.rescueQuery()
     return result
   }
 
-  async first(columns?: any[] = ['*']) {
+  async first(columns: any[] = ['*']) {
     this.prepareQuery()
     const result = this.query.select(columns).first()
     this.rescueQuery()
     return result
   }
 
-  async firstWhere(where: any, columns?: any[] = ['*']) {
+  async firstWhere(where: any, columns: any[] = ['*']) {
     return [where, columns]
   }
 
-  async firstOrFailWhere(where: any, columns?: any[] = ['*']) {
+  async firstOrFailWhere(where: any, columns: any[] = ['*']) {
     return [where, columns]
   }
 
@@ -58,29 +60,29 @@ export default class BaseRepository extends BaseRepositoryMixin implements Repos
     return this.query
   }
 
-  async all(columns?: any[] = ['*']) {
+  async all(columns: any[] = ['*']) {
     this.prepareQuery()
     const result = this.query.select(columns)
     this.rescueQuery()
     return result
   }
 
-  async paginate(curr_page: number = 1, limit?: number, columns?: any[] = ['*']) {
+  async paginate(curr_page: number = 1, limit: number, columns: any[] = ['*']) {
     this.prepareQuery()
     const result = this.query.select(columns).paginate(curr_page,limit)
     this.rescueQuery()
     return result
   }
 
-  async simplePaginate(limit?: number, columns?: any[] = ['*']) {
+  async simplePaginate(limit?: number, columns: any[] = ['*']) {
     return [limit, columns]
   }
 
-  async findByField(field: string, value: any, columns?: any[] = ['*']) {
+  async findByField(field: string, value: any, columns: any[] = ['*']) {
     return [field, value, columns]
   }
 
-  async findWhereIn(field: string, value: any[], columns?: any[] = ['*']) {
+  async findWhereIn(field: string, value: any[], columns: any[] = ['*']) {
     return [field, value, columns]
   }
 
@@ -104,3 +106,4 @@ export default class BaseRepository extends BaseRepositoryMixin implements Repos
     return true
   }
 }
+applyMixins(BaseRepository, [HasCriteriaMixin, HasScopeQueryMixin])

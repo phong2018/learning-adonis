@@ -1,13 +1,5 @@
-import Mixin from 'App/AdonisCore/Mixins/Mixin'
-
-export const HasScopeQueryMixin: Mixin = (baseClass) => {
-  return class extends baseClass {
-
+export default class HasScopeQueryMixin {
     protected scopeQueries
-
-    async resetQuery() {
-      this.query = this.model.query()
-    }
 
     async resetScope() {
       this.scopeQueries = []
@@ -17,12 +9,11 @@ export const HasScopeQueryMixin: Mixin = (baseClass) => {
       this.scopeQueries.push(scopeQuery)
     }
 
-    async applyScopeQueries() {
+    async applyScopeQueries(query) {
       for (const callback of this.scopeQueries) {
         if (typeof callback === 'function') {
-          callback(this.query)
+          callback(query)
         }
       }
     }
-  };
-};
+}
