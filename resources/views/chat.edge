@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title> Simple Chat with nodeJs and Socket.io</title>
+    <link href="/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="mario-chat">
+        <div id="chat-window">
+            <div class="nav">
+                <p>Simple Chat Using nodeJs and Socket.io</p>
+            </div>
+            <div id="output"></div>
+            <div id="feedback"></div>
+        </div>
+        <input id="handle" type="text" placeholder="Your name" />
+        <input id="message" type="text" placeholder="Please type message here..." />
+        <button id="send" type="button">Send</button>
+    </div>
+</body>
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+<script src="/chat.js"></script>
+</html>
