@@ -28,7 +28,7 @@ export class BaseRepository {
 
   async find(id: any, columns: any[] = ['*']) {
     this.prepareQuery()
-    const result = this.query.select(columns).where('id', id)
+    const result = this.query.select(columns).where('id', id).first()
     this.rescueQuery()
     return result
   }
