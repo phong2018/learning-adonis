@@ -19,6 +19,9 @@ export default class User extends BaseModel {
   @column()
   public name: string | null
 
+  @column()
+  public is_super_admin: number | null
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

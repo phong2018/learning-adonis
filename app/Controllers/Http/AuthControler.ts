@@ -18,6 +18,7 @@ export default class AuthControler {
         rules.confirmed()
       ]),
       'name': schema.string(),
+      'is_super_admin': schema.number.optional(),
     })
 
     const data = await request.validate({
@@ -49,7 +50,7 @@ export default class AuthControler {
     const user = await User.query().where('email', email).firstOrFail()
 
     return {
-        'access_token' : token,
+        'access_token' : token.token,
         'currentUser' : user
     };
   }
