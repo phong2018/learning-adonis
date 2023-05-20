@@ -16,7 +16,8 @@ export default class AuthControler {
       ]),
       'password': schema.string({}, [
         rules.confirmed()
-      ])
+      ]),
+      'name': schema.string(),
     })
 
     const data = await request.validate({
