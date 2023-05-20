@@ -44,7 +44,12 @@ export default class AuthControler {
     const password = data.password
 
     const token = await auth.attempt(email, password)
+    // or const token = await auth.use('api').attempt(email, password)
+    const user = await User.query().where('email', email).firstOrFail()
 
-    return token.toJSON()
+    return {
+        'access_token' : token,
+        'currentUser' : user
+    };
   }
 }
