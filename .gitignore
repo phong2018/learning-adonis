@@ -5,3 +5,9 @@ coverage
 .DS_STORE
 .env
 tmp
+# other settings...
+mix-manifest.json
+hot
+public/js/*
+public/css/*
+public/**/*_js*
