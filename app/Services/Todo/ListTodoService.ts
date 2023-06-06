@@ -11,7 +11,7 @@ export default class ListTodoService extends BaseService {
     this.repository = Application.container.make(TodoRepository)
   }
 
-  public async handle(): Promise<Todo> {
+  public async handle(): Promise<Todo[]> {
     this.repository.pushScopeQuery(function(query) {
       return query.where('id', '>', 2)
     })

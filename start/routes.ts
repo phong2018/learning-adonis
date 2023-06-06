@@ -28,6 +28,9 @@ Route.group(() => {
 
   Route.group(() => {
     Route.resource('todos', 'TodoController')
+    Route.group(() => {
+      Route.get('/images/list', 'ImageController.index')
+    })
   }).middleware('auth')
 
 }).prefix('/api')
