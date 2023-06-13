@@ -12,3 +12,9 @@ Route.get('/home', 'HomeController.index')
 
 // ################## test AsyncLocalStorage
 Route.get('/testUseAsyncLocalStorage', 'TodoController.testUseAsyncLocalStorage')
+
+
+// ################## reactjs
+Route.get('/test-react', async ({ inertia }) => { 
+  return inertia.render('Users/IndexPage');
+}) 
